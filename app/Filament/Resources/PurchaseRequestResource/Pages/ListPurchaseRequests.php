@@ -34,6 +34,7 @@ use Filament\Forms\Components\Wizard\Step;
 use App\Exports\PurchaseRequestItemsExport;
 use App\Exports\PurchaseRequestTemplateExport;
 use App\Filament\Resources\PurchaseRequestResource;
+use App\Models\ClientCategoryUser;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 
@@ -207,12 +208,12 @@ class ListPurchaseRequests extends ListRecords
                         $items = Item::all();
                         $uoms = Uom::all();
                         $itemStandardCost = ItemStandardCost::all();
-                        $categories = Category::all();
+                        $categories = ClientCategoryUser::all();
 
                         foreach ($headers as $header) {
                             if ($header['no'] != null) {
                                 $code = make_purchase_request_no();
-                                $categoryUser = $categories->where('id', $header['category_id'])->first();
+                                $categoryUser = $categories->where('category_id', $header['category_id'])->where('client_id', $header['client_id'])->first();
                                 $purchaseRequest = PurchaseRequest::create([
                                     'code' => $code,
                                     // 'request_date' => Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($header['request_date'])),
