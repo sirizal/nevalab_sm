@@ -57,6 +57,17 @@ class VendorItemResource extends Resource
                             ->numeric()
                             ->rules(['integer', 'min:1'])
                             ->required(),
+                        Select::make('uom_id')
+                            ->label('Satuan')
+                            ->options(Uom::query()->pluck('code', 'id')->toArray())
+                            ->searchable()
+                            ->required(),
+                        TextInput::make('conversion_qty')
+                            ->label('Konversi Satuan')
+                            ->numeric()
+                            ->rules(['integer', 'min:1'])
+                            ->default(1)
+                            ->required(),
                         DatePicker::make('start_date')
                             ->required(),
                         DatePicker::make('end_date')
@@ -69,8 +80,8 @@ class VendorItemResource extends Resource
                                 }
                             }),
                         Hidden::make('status')->default(1)
-                    ])
-            ])->columns(2);
+                    ])->columns(2)
+            ]);
     }
 
     public static function table(Table $table): Table
