@@ -39,7 +39,9 @@ class PurchaseRequestItemsExport implements FromCollection, WithHeadings
             'Job Task No.',
             'YourReference',
             'COSTCENTER CODE',
-            'BRANCH CODE'
+            'BRANCH CODE',
+            'PRA ID',
+            'PRA Detail ID'
         ];
     }
 
@@ -103,7 +105,9 @@ class PurchaseRequestItemsExport implements FromCollection, WithHeadings
                 'Job Task No.' => $item->purchaseRequest->serviceType->task_no,
                 'YourReference' => $item->purchaseRequest->code,
                 'COSTCENTER CODE' => '',
-                'BRANCH CODE' => ''
+                'BRANCH CODE' => '',
+                'PRA ID' => $item->purchaseRequest->id,
+                'PRA Detail ID' => $item->id
             ]);
         }
 
